@@ -1,18 +1,3 @@
-:no_entry:
-```diff
-- !!! Library is deprecated !!!
-```
-:no_entry:
-
-
-<p align="center">
-    <a href="https://custom-it.ru" target="_blank">
-        <img src="https://avatars1.githubusercontent.com/u/31646762?s=200&v=4" height="100px">
-    </a>
-    <h1 align="center">Yii2 ExcelReport Extension</h1>
-    <br>
-</p>
-
 
 An extension for generate excel file from GridView content. When used with a GridView, extention saves the results of filtering and sorting in a file. Everything you see in the GridView will be imported into a file. All tasks are run in the background, the user can check the progress with the progressbar. It is not necessary to remain on the current page during the execution. You can continue working with the application. When the file is created, the download link will remain on the page with the widget until it is used, the user can use it at any time. When the file is downloaded, you can start generating a new report.
 

@@ -11,6 +11,9 @@ echo Html::hiddenInput('queueId', $queueId, ['id' => 'queueId']);
         0%
     </div>
 </div>
+<div id="save-file" style="display: none;">
+    <?= Yii::t('customit','Saving file') ?>
+</div>
 
 <div id="progress-file" style="display: none;">
     <a href="/excelreport/report/download" target="_blank"><?= Yii::t('customit','Download last report') ?></a>
@@ -20,22 +23,37 @@ echo Html::hiddenInput('queueId', $queueId, ['id' => 'queueId']);
 </div>
 
 <script>
+
+    function savingFile(){
+        $('#save-file').show();
+        var savingTimer = setInterval(function(){
+            $.post( "/excelreport/report/check", { }, function( data ) {
+                var check = data['check'];
+                if (check){
+                    $('#save-file').hide();
+                    $('#progress-file').show();
+                    clearInterval(savingTimer);
+                }
+            }
+        }, 1000);
+    }
+
     var timerId = setInterval(function() {
         $.post( "/excelreport/report/queue", { id: $('#queueId').val() }, function( data ) {
-            console.log(data);
             var $percent = data['progress'][0] * 100 / data['progress'][1];
             $('#reportProgress').css('width', $percent+'%').attr('aria-valuenow', $percent);
             $('#reportProgress').html(Math.floor($percent)+'%');
             if (data['progress'][0] == data['progress'][1]) {
                 clearInterval(timerId);
                 $('#reset-progress').hide();
-                $('#progress-file').show();
                 $('#reportProgress').removeClass('active');
                 $('#reportProgress').removeClass('progress-bar-striped');
                 $('#reportProgress').addClass('progress-bar-success');
             }
         });
     }, 2000);
+
+
     
     document.addEventListener("DOMContentLoaded", function(event) { 
         $('#reset-progress-link').click(function (e) {

@@ -20,5 +20,6 @@ return [
     'Create Excel' => 'Сформировать Excel',
     'Download last report' => 'Скачать последний отчет',
     'Report' => 'Выгрузка',
+    'Saving file' => 'Сохранние файла...',
     'Stop generation' => 'Остановить процесс',
 ];

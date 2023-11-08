@@ -21,6 +21,20 @@ class ReportController extends Controller {
         ];
     }
 
+    public function actionCheck(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (Yii::$app->session->has('excel-report-progress')){
+            $data = unserialize(Yii::$app->session->get('excel-report-progress'));
+            $file = Yii::$app->basePath . '/runtime/export/' . $data['fileName'] . '.xlsx';
+            if (file_exists($file)) {
+                if (filesize($file) != 0) {
+                    return ['check'=>true];
+                }
+            }
+        }
+        return ['check'=>false];
+    }
+
     public function actionDownload() {
         if (Yii::$app->session->has('excel-report-progress')){
             $data = unserialize(Yii::$app->session->get('excel-report-progress'));
