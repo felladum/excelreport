@@ -34,7 +34,7 @@ echo Html::hiddenInput('queueId', $queueId, ['id' => 'queueId']);
                     $('#progress-file').show();
                     clearInterval(savingTimer);
                 }
-            }
+            });
         }, 1000);
     }
 
@@ -45,6 +45,7 @@ echo Html::hiddenInput('queueId', $queueId, ['id' => 'queueId']);
             $('#reportProgress').html(Math.floor($percent)+'%');
             if (data['progress'][0] == data['progress'][1]) {
                 clearInterval(timerId);
+                savingFile();
                 $('#reset-progress').hide();
                 $('#reportProgress').removeClass('active');
                 $('#reportProgress').removeClass('progress-bar-striped');
